@@ -13,7 +13,8 @@ Ticket state:
   1.waiting
   2.executing
 
-####desc######
+DESC
+----------
  client --> create ticket --> if has same ticket
                                 push ticket in blocking queue
                           --> else
