@@ -27,7 +27,8 @@ Ticket state:
    1.del the finished ticket from executing queue
    2.pop same ticket from the blocking queue and push in executing queue
 
-How to use:
+Installation
+-----------
   gem install concurrent
 
   require 'concurrent'
