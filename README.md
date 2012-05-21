@@ -4,16 +4,18 @@ concurrent
 1.Redis based concurrence programming wrapper,
     which sequel concurrent actions by an unique tag and even share state in multi process.
 
-###Client state:
+###Client state
 ```
   waiting
   executing
   finish & notify
 ```
 
-Ticket state:
-  1.waiting
-  2.executing
+###Ticket state
+```
+  waiting
+  executing
+```
 
 DESC
 ----------
