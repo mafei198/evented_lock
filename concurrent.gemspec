@@ -10,6 +10,6 @@ Gem::Specification.new do |s|
                    'lib/concurrent/client.rb',
                    'lib/concurrent/ticket.rb',
                    'lib/concurrent/redis_key.rb']
-  s.homepage    =
-    'http://rubygems.org/gems/concurrent-wrapper'
+
+  s.homepage    = "https://github.com/mafei198/concurrent"
 end
