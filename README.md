@@ -5,14 +5,14 @@ concurrent
     which sequel concurrent actions by an unique tag and even share state in multi process.
 
 ###Client state
- -waiting
- -executing
- -finish & notify
+ - waiting
+ - executing
+ - finish & notify
 
 
 ###Ticket state
- -waiting
- -executing
+ - waiting
+ - executing
 
 work flow
 ----------
