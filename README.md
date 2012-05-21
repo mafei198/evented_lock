@@ -27,8 +27,8 @@ work flow
  blocking desc:
    1.use the redis blpop for waiting ticket
  notify actions:
-   1.del the finished ticket from executing queue
-   2.pop same ticket from the blocking queue and push in executing queue
+   1.pop same ticket from the blocking queue and push in executing queue
+   2.if there is no blocking ticket then delete the ticket from executing queue
 ```
 Installation
 -----------
