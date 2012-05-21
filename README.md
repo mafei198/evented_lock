@@ -14,7 +14,7 @@ concurrent
  -waiting
  -executing
 
-WORK FLOW DESC
+work flow
 ----------
 ```
  client --> create ticket --> if has same ticket
@@ -33,17 +33,19 @@ WORK FLOW DESC
 Installation
 -----------
   ```
-  gem install concurrent
+  gem install concurrent-wrapper
   ```
 Usage
 -----
   ```
   require 'concurrent'
+  #configure redis
   Concurrent.config do |conf|
     conf.redis_host = '127.0.0.1'
     conf.redis_port = '6379'
   end
 
+  #wrapper the concurrent code
   uniq_tag = 'test:1'
   Concurrent.sync(uniq_tag) do
     puts 1+1
