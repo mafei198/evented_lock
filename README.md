@@ -5,15 +5,16 @@ concurrent
     which sequel concurrent actions by an unique tag and even share state in multi process.
 
 Client state:
-  1.waiting
-  2.executing
+  *1.waiting
+  *2.executing
   3.finish & notify
 
 Ticket state:
   1.waiting
   2.executing
 
-####desc######
+DESC
+----------
  client --> create ticket --> if has same ticket
                                 push ticket in blocking queue
                           --> else
@@ -27,9 +28,12 @@ Ticket state:
    1.del the finished ticket from executing queue
    2.pop same ticket from the blocking queue and push in executing queue
 
-How to use:
+Installation
+-----------
   gem install concurrent
-
+  
+Usage
+-----
   require 'concurrent'
   Concurrent.config do |conf|
     conf.redis_host = '127.0.0.1'
