@@ -19,6 +19,7 @@ concurrent
 
 DESC
 ----------
+```
  -client --> create ticket --> if has same ticket
  -                               push ticket in blocking queue
  -                         --> else
@@ -31,11 +32,12 @@ DESC
  -notify actions:
  -  1.del the finished ticket from executing queue
  -  2.pop same ticket from the blocking queue and push in executing queue
-
+```
 Installation
 -----------
+  ```
   gem install concurrent
-  
+  ```
 Usage
 -----
   ```
