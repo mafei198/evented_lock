@@ -1,5 +1,5 @@
-ROOT = File.expand_path(File.dirname(__FILE__))
+root = File.expand_path(File.dirname(__FILE__))
 
-require File.join(ROOT, 'concurrent', 'client')
-require File.join(ROOT, 'concurrent', 'ticket')
-require File.join(ROOT, 'concurrent', 'redis_key')
+require File.join(root, 'concurrent', 'client')
+require File.join(root, 'concurrent', 'ticket')
+require File.join(root, 'concurrent', 'redis_key')
