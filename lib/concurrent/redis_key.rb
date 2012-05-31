@@ -1,13 +1,13 @@
 module RedisKey
-  def blocking_key
+  def blocking_list
     "blocking:#{@uniq_tag}:list"
   end
 
-  def executing_key
+  def executing_set
     "executing:#{@uniq_tag}:list"
   end
 
-  def client_key
-    "client:#{@uniq_tag}:list"
+  def client_list
+    "client:#{self.object_id}:list"
   end
 end
