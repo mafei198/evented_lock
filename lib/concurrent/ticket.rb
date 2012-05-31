@@ -24,15 +24,22 @@ class Ticket
     redis.setex "#{@uniq_tag}:#{ticket_id}", timeout, @uniq_tag
   end
 
+  def delete
+    ticket_id = self.object_id
+    redis.del "#{@uniq_tag}:#{ticket_id}"
+  end
+
   def next_ticket
+    i = 0
     loop do
       ticket_id = pop_blocking
-      if redis.llen(blocking_list) == 0
-        return false
-      end
 
       if ticket_id && redis.exists("#{@uniq_tag}:#{ticket_id}")
         return ticket_id
+      end
+
+      if redis.llen(blocking_list) == 0
+        return false
       end
 
     end
@@ -42,7 +49,7 @@ class Ticket
   #将ticket加入executing状态 成功: 将ticket推送给client
   #将ticket加入executing状态 失败: 代表有相同uniq_tag的ticket正在执行，将ticket推送到阻塞队列
   def dispatch
-    executing ? push_to_client : blocking
+    executing ? push_to_client(self.object_id) : blocking
   end
 
   #将ticket插入阻塞队列

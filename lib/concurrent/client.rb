@@ -26,6 +26,7 @@ class Concurrent
     ticket.pull ? yield : raise(DeadLock)
   ensure
     ticket.notify
+    ticket.delete
   end
 
 end
