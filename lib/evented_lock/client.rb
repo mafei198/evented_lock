@@ -25,9 +25,9 @@ class EventedLock
     ticket.pull ? yield : raise(DeadLock)
   rescue DeadLock
     puts "ticket's object_id:#{ticket.object_id}"
-    puts "ticket.tag[:blocking_list]:#{ticket.tag[:blocking_list]}"
-    puts "ticket.tag[:pull_list]:#{ticket.tag[:pull_list]}"
-    puts "tag:#{ticket.tag}"
+    puts "ticket.tag[:blocking_list]:#{ticket.tag[:blocking_list].lrange 0, -1}"
+    puts "ticket.tag[:pull_list]:#{ticket.tag[:pull_list].lrange 0, -1}"
+    puts "tag:#{ticket.tag.get}"
     raise DeadLock
   ensure
     ticket and ticket.notify
