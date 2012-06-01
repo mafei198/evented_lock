@@ -33,21 +33,21 @@ work flow
 Installation
 -----------
   ```
-  gem install concurrent-wrapper
+  gem install evented_lock
   ```
 Usage
 -----
   ```
-  require 'concurrent'
+  require 'evented_lock'
   #configure redis
-  Concurrent.config do |conf|
+  EventedLock.config do |conf|
     conf.redis_host = '127.0.0.1'
     conf.redis_port = '6379'
   end
 
   #wrapper the concurrent code
   uniq_tag = 'test:1'
-  Concurrent.sync(uniq_tag) do
+  EventedLock.sync(uniq_tag) do
     puts 1+1
   end
   ```
