@@ -2,7 +2,7 @@ require 'redis'
 
 class DeadLock < StandardError; end
 
-class Concurrent
+class EventedLock
   class << self
     attr_accessor :redis_path, :redis_port, :timeout
   end
