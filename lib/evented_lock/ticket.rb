@@ -43,18 +43,16 @@ class Ticket
     get_lock? ? push_to_client(id) : blocking
   end
 
-  #将ticket插入阻塞队列
+  #push ticket's id in blocking_list
   def blocking
     tag[:blocking_list].lpush id
   end
 
-  #弹出等待中的ticket
+  #rpop ticket's id from blocking_list
   def pop_blocking
     tag[:blocking_list].rpop
   end
 
-  #将ticket加入到执行中set
-  #利用set value 的唯一性保证执行中的ticket的uniq_tag是唯一的，从而避免并发
   def get_lock?
     tag.setnx :lock
 =begin

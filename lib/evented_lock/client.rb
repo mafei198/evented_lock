@@ -23,6 +23,12 @@ class EventedLock
     ticket.dispatch
 
     ticket.pull ? yield : raise(DeadLock)
+  rescue DeadLock
+    puts "ticket's object_id:#{ticket.object_id}"
+    puts "ticket.tag[:blocking_list]:#{ticket.tag[:blocking_list]}"
+    puts "ticket.tag[:pull_list]:#{ticket.tag[:pull_list]}"
+    puts "tag:#{ticket.tag}"
+    raise DeadLock
   ensure
     ticket and ticket.notify
   end
