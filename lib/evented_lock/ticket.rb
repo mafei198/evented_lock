@@ -111,10 +111,10 @@ class Ticket
   end
 
   def timeout
-    Concurrent.timeout || 3
+    EventedLock.timeout || 3
   end
 
   def redis
-    Concurrent.redis
+    EventedLock.redis
   end
 end

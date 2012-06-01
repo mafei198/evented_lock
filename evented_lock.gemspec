@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'evented_lock'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.date        = '2012-06-01'
   s.summary     = "Proccess-shared Evented Pessimistic Lock , fast and reliable which can proccess thousands of locking actions per second."
   s.description = "Actions are waiting for lock in queue. There is no race condition for geting the lock, they just geting lock by evented"
