@@ -39,13 +39,18 @@ class Ticket
   #    push ticket's id to blocking_list
   #  end
   #
-  def dispatch
-    get_lock? ? push_to_client(id) : blocking
+  def dispatch(ticket_id = self.id)
+    get_lock? ? push_to_client(ticket_id) : blocking(ticket_id)
+  end
+
+  #将ticket推送到client，阻塞中的client得到ticket后开始执行block中的代码
+  def push_to_client(ticket_id)
+    tag[:pull_list][ticket_id].lpush ticket_id
   end
 
   #push ticket's id in blocking_list
-  def blocking
-    tag[:blocking_list].lpush id
+  def blocking(ticket_id)
+    tag[:blocking_list].lpush ticket_id
   end
 
   #rpop ticket's id from blocking_list
@@ -68,32 +73,21 @@ class Ticket
 =end
   end
 
-  #移除执行中的ticket
   def release_lock
-    tag.del
-  end
-
-  #将ticket推送到client，阻塞中的client得到ticket后开始执行block中的代码
-  def push_to_client(ticket_id)
-    tag[:pull_list][ticket_id].lpush ticket_id
+   # puts "release_lock................"
+    tag.multi do
+      tag.del
+      lost_id = pop_blocking
+    end
+    dispatch(lost_id) if lost_id
   end
 
   def pull
     tag[:pull_list][id].brpop timeout
   end
 
-  #每个ticket执行完成之后回调notify.
-  #notify首先查看是否还有client在等待.
-  #如果有:   从等待队列弹出ticket，然后推送给client
-  #如果没有: 从执行中set移除该ticket的uniq_tag
-  def notify
-    ticket_id = next_ticket
-    ticket_id ? push_to_client(ticket_id) : release_lock
-  end
-
   #get the next usable ticket's id
   def next_ticket
-    i = 0
     loop do
       ticket_id = pop_blocking
 
@@ -106,6 +100,11 @@ class Ticket
       end
 
     end
+  end
+
+  def notify
+    ticket_id = next_ticket
+    ticket_id ? push_to_client(ticket_id) : release_lock
   end
 
   def timeout
