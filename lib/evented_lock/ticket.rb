@@ -75,7 +75,8 @@ class Ticket
 
   def release_lock
    # puts "release_lock................"
-    tag.multi do
+    lost_id = nil
+    redis.multi do
       tag.del
       lost_id = pop_blocking
     end
