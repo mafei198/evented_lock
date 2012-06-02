@@ -60,27 +60,18 @@ class Ticket
 
   def get_lock?
     tag.setnx :lock
-=begin
-    if tag.setnx(expire_at)
-      true
-    else
-      if tag.get.to_i < current_time and tag.getset(expire_at).to_i < current_time
-        true
-      else
-        false
-      end
-    end
-=end
   end
 
   def release_lock
-   # puts "release_lock................"
     lost_id = nil
     redis.multi do
       tag.del
       lost_id = pop_blocking
     end
-    dispatch(lost_id) if lost_id
+    if lost_id
+      puts "redispath...................."
+      dispatch(lost_id)
+    end
   end
 
   def pull
